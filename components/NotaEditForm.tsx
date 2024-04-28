@@ -1,9 +1,10 @@
 // Novo componente NoteForm.js
 import { api } from '@components/utils/api'; //API
-import { NotaEditFormProps } from 'interfaces/NotaEditFormProps'; //Interface para o uso do componente NotaEditForm
+import type { NotaEditFormProps } from 'interfaces/NotaEditFormProps'; //Interface para o uso do componente NotaEditForm
 import React from 'react';
 import { RiCloseCircleLine, RiSaveLine } from 'react-icons/ri'; //icones do react-icons
 import { alertInfo } from './Alerts/alertInfo'; //imporntando componente de notificacao 
+import { alertError } from './Alerts/alertError';
 
 
 //Passado as propriedades necessarias para realizar o processo de inclusao de uma nova nota
@@ -17,18 +18,26 @@ function NoteEditForm({ showNoteForm, setTitulo, setConteudo, titulo, conteudo, 
 
     const notas = api.getNotas.get.useQuery() //Iniciadno a API para puxar os dados do banco
 
-    const editNota = api.editNota.edit.useMutation({ //em caso de sucesso, realizar processo de atualização do banco
+    const editNota = api.editNota.edit.useMutation({
         onSuccess: () => {
-            notas.refetch()
-            formOpenOrClose() //fechar o formulario de edição
-            alertInfo("Nota atualizada")
-
+            notas.refetch().then(() => {
+                formOpenOrClose(); //fechar o formulário de edição
+                alertInfo("Nota atualizada");
+            }).catch(error => {
+                console.error("Erro ao refetch notas:", error);
+                // Lide com o erro, se necessário
+            });
         }
-    })
+    });
+
 
     //funcao para editar a nota
     const edit = () => {
-        editNota.mutate({ id: idNota, titulo: titulo, conteudo: conteudo ?? '' })
+        if (titulo !== "" && conteudo !== "") {
+            editNota.mutate({ id: idNota, titulo: titulo, conteudo: conteudo ?? '' })
+        } else {
+            alertError("Necessário adicionar título e descrição")
+        }
     }
 
     //Apresentar e ocultar formulario para adicionar uma nova nota

@@ -1,5 +1,5 @@
 // Novo componente NoteForm.js
-import { NoteFormProps } from 'interfaces/FormNotaProps'; //interface para componente NoteForm
+import type { NoteFormProps } from 'interfaces/FormNotaProps'; //interface para componente NoteForm
 import React from 'react';
 import { RiCloseCircleLine, RiSaveLine } from 'react-icons/ri'; //icone do readct-icons
 

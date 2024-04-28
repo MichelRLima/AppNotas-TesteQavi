@@ -3,7 +3,9 @@
 O projeto Notas é um sistema de notas simples desenvolvido como parte de um teste técnico para a vaga de desenvolvedor fullstack na empresa Quarto à Vista.
 
 ## Objetivo
-O objetivo principal do projeto é criar um sistema de notas que permita aos usuários adicionar, editar e excluir notas com títulos e descrições
+O objetivo principal do projeto é criar um sistema de notas que permita aos usuários adicionar, editar e excluir notas com títulos e descrições.
+
+O projeto pode ser acessado [clicando aqui](https://desafio-qavi.vercel.app/)
 
 ## Funcionalidades Principais
 - Adicionar notas com título e descrição
@@ -66,6 +68,8 @@ O objetivo principal do projeto é criar um sistema de notas que permita aos usu
 ## Comandos Disponíveis
 
 - `npm run dev`: Inicia o servidor de desenvolvimento.
+- `npm run build`: Criar a versão de produção da aplicação.
+- `npm run start`: Iniciar a aplicação em um ambiente de produção (após executar o comando `npm run build` e seguir a configuração do Ambiente de Desenvolvimento).
 
 ## Dependências
 - Nextjs
@@ -75,7 +79,6 @@ O objetivo principal do projeto é criar um sistema de notas que permita aos usu
 - tailwindcss
 - react-tooltip (lib de tooltip)
 - react-toastify (lib de notificação para confirmação)
-- SweetAlert2 (lib de notificação)
 - Zod
 
 ## Requisitos de Sistema

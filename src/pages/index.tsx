@@ -2,7 +2,7 @@ import Nota from "components/Nota"; //importando o componente Nota
 import { RiAddFill } from "react-icons/ri"; //icones usado através do react-icons
 import { useEffect, useState } from "react";
 import { api } from "../utils/api"; //importando a api
-import { NotaProps } from "interfaces/NotaProps"; //importando interdace do componente Nota
+import type { NotaProps } from "interfaces/NotaProps"; //importando interdace do componente Nota
 import NoteForm from "components/NoteForm"; //Importando componente NooteForma
 import { ToastContainer } from "react-toastify"; //Para o uso da lib React-Toastify (notificações)
 import 'react-toastify/dist/ReactToastify.css'; //imporntando estilo do react-toastify
@@ -36,13 +36,15 @@ export default function Home() {
       setDescricao("") //limpar o status
 
       const notasRefrash = notas.refetch() //atualizar notas
-
+      alertSucess("Nova nota adicionada")
       notasRefrash.then(data => {
         setShowNoteForm(false);
+        console.log(data)
 
       }).catch(error => {
         console.error("Erro ao buscar notas:", error);
-        alertError("Erro ao buscar notas")
+        alertError("Algo deu errado")
+
       })
     },
     onError: () => {
@@ -54,7 +56,7 @@ export default function Home() {
   const addNota = () => {
     if (titulo !== "" && descricao !== "") {
       postNota.mutate({ titulo: titulo, descricao: descricao })
-      alertSucess("Nova nota adicionada")
+
     } else {
       alertError("Necessário adicionar título e descrição")
     }
